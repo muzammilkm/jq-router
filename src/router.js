@@ -4,7 +4,8 @@
         defaultRoute,
         events = {
             routeChangeStart: 'router.routeChangeStart',
-            routeChangeSucess: 'router.routeChangeSucess'
+            routeChangeSucess: 'router.routeChangeSucess',
+            renderViewSucess: 'render.renderViewSucess'
         },
         render;
 
@@ -38,11 +39,6 @@
             return route;
         };
 
-        s.setController = function(ctrl) {
-            render.setController(ctrl);
-            return this;
-        };
-
         s.setData = function(data) {
             var s = this;
 
@@ -62,6 +58,7 @@
                     url += data[segment].url;
                     route.segments.push(segment);
                 }
+                route.name = routeName;
                 route.url = url;
                 route.templateUrl = data[routeName].templateUrl;
                 route.controller = data[routeName].controller;
@@ -75,7 +72,7 @@
         };
 
         s.getCurrentRoute = function() {
-            return render.getCurrentRoute();
+            return current;
         };
 
         s.go = function(routeName, params) {
@@ -98,6 +95,13 @@
                 }
                 isFirstTime = false;
             }
+            return s;
+        };
+
+        s.onViewChange = function(handler) {
+            var s = this;
+            $(window).on(events.renderViewSucess, handler);
+            return s;
         };
 
         return s;
@@ -107,12 +111,7 @@
     render = (function() {
         var s = {},
             templateCache = {},
-            controller,
             viewSelector;
-
-        s.setController = function(ctrl) {
-            controller = ctrl;
-        };
 
         s.setViewSelector = function(selector) {
             viewSelector = selector;
@@ -149,9 +148,7 @@
                     $page = $(viewSelector + ':eq(' + i + ')');
                 if (!current || route.segments[i] !== current.segments[i]) {
                     $page.html(templateCache[_route.templateUrl]);
-                    if (controller.is(_route.controller)) {
-                        controller.get(_route.controller).init();
-                    }
+                    $(window).trigger(events.renderViewSucess, [_route]);
                 }
             }
         };
