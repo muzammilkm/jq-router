@@ -1,4 +1,15 @@
-(function($, window) {
+/*!
+ * jQ-Router JQuery Plugin v1.0.0
+ * https://github.com/muzammilkm/jq-router
+ *
+ * Copyright 2017, Muzammil Khaja Mohammed
+ * Licensed under the MIT license.
+ * https://github.com/muzammilkm/jq-router/blob/master/LICENSE
+ *
+ * Date: Tue Sept 26 7:14:25 2017 +0530
+ */
+
+ (function($, window) {
     var router,
         isFirstTime = true,
         defaultRoute,

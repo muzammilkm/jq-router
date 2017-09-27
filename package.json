@@ -25,6 +25,5 @@
   },
   "homepage": "https://github.com/muzammilkm/jq-router#readme",
   "dependencies": {
-    "http-server": "^0.10.0"
   }
 }
