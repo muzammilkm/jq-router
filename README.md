@@ -5,8 +5,13 @@ Built on jQuery 1.3.0 & Inspried by (Angular ui-router & jQuery Single Page Appl
 # Features
 1. Tiny
 2. Single Page Application (SPA)
-3. Seperation Concerns
-4. Nested Views
+3. Routing
+4. Seperation Concerns
+5. Nested Views
+
+
+# Demo
+1. [Basic](https://muzammilkm.github.io/jq-router/docs/basic.html)
 
 # Introduction
 A tiny jQuery plugin for building single page application (SPA) with the possiblily of nested views.
@@ -61,16 +66,26 @@ Routes is collection of route objects. Each route object consists of url, templa
     }
 ```
 
-Details description of route properties
+###### Details description of route properties
 ```javascript
 abstract: true
 ```
-if route has child route & view
+> if route has child route & view
 ```javascript
 url: ''
 ```
-Should be hashed('#') url that can contain accept optional parameters using (:name) 
+> Should be hashed('#') url that can contain accept optional parameters using (:name) 
 ```javascript
 templateUrl: ''
 ```
-Path to render the view in matched view selector.
+> Path to render the view in matched view selector.
+
+```javascript
+$.when($.ready)
+  .then(function() {
+	$.router.run('.ui-view', 'home');
+  });
+```
+> Run takes two parameters 
+* View selector, This will be used to match element & replace the template.
+* On Initial load, Navigate to a route.
