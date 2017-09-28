@@ -11,3 +11,29 @@ Built on jQuery 1.3.0 & Inspried by (Angular ui-router & jQuery Single Page Appl
 # Introduction
 A tiny jQuery plugin for building single page application (SPA) with the possiblily of nested views.
 
+Basic setup
+```javascript
+(function () {
+   var routes = {},
+	        defaultRoute = 'home';
+
+	    routes['home'] = {
+	        url: '#/',
+	        templateUrl: 'templates/home.html'
+	    };
+
+	    routes['contact'] = {
+	        url: '#/contact',
+	        templateUrl: 'templates/contact.html'
+	    };
+
+	    $.router
+	        .setData(routes)
+	        .setDefault(defaultRoute);
+
+	      $.when($.ready)
+	        .then(function() {
+	            $.router.run('.my-view','home');
+	        });
+}());
+```
