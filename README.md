@@ -11,29 +11,66 @@ Built on jQuery 1.3.0 & Inspried by (Angular ui-router & jQuery Single Page Appl
 # Introduction
 A tiny jQuery plugin for building single page application (SPA) with the possiblily of nested views.
 
-Basic setup
+Basic Example
 ```javascript
 (function () {
    var routes = {},
-	        defaultRoute = 'home';
+	defaultRoute = 'home';
 
-	    routes['home'] = {
-	        url: '#/',
-	        templateUrl: 'templates/home.html'
-	    };
+    routes['home'] = {
+	url: '#/',
+	templateUrl: 'templates/home.html'
+    };
 
-	    routes['contact'] = {
-	        url: '#/contact',
-	        templateUrl: 'templates/contact.html'
-	    };
+    routes['contact'] = {
+	url: '#/contact',
+	templateUrl: 'templates/contact.html'
+    };
 
-	    $.router
-	        .setData(routes)
-	        .setDefault(defaultRoute);
+    $.router
+	.setData(routes)
+	.setDefault(defaultRoute);
 
-	      $.when($.ready)
-	        .then(function() {
-	            $.router.run('.my-view','home');
-	        });
+    $.when($.ready)
+	.then(function() {
+	    $.router.run('.my-view','home');
+	});
 }());
 ```
+
+# Documentation
+Routes is collection of route objects. Each route object consists of url, templateUrl & each route can be parent route of another route.
+
+```javascript
+    var routes = {};
+    
+    route["parent"] = {
+	url: '', 
+	abstract: true,
+	templateUrl: ''
+    }
+    
+    route["parent.child"] = {
+	url: '', 
+	templateUrl: ''
+    }
+    
+    route["parent.child.grandchild"] = {
+	url: '', 
+	templateUrl: ''
+    }
+```
+
+Details description of route properties
+```javascript
+abstract: true
+```
+if route has child route & view
+```javascript
+url: ''
+```
+Should be hashed('#') url that can contain accept optional parameters using (:name) 
+```javascript
+templateUrl: ''
+```
+Path to render the view in matched view selector.
