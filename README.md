@@ -12,6 +12,7 @@ Built on jQuery 1.3.0 & Inspried by (Angular ui-router & jQuery Single Page Appl
 
 # Demo
 1. [Basic](https://muzammilkm.github.io/jq-router/docs/basic.html)
+2. [Advance](https://muzammilkm.github.io/jq-router/docs/advance.html)
 
 # Introduction
 A tiny jQuery plugin for building single page application (SPA) with the possiblily of nested views.
