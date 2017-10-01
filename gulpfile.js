@@ -6,7 +6,8 @@ var gulp = require('gulp'),
 // task
 gulp.task('minify-js', function () {
 	gulp.src('./src/*.js')
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest('docs/scripts'));
 
     gulp.src('./src/*.js') // path to your files
     .pipe(uglify())
