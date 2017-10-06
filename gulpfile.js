@@ -1,7 +1,21 @@
 // including plugins
 var gulp = require('gulp'), 
 	uglify = require("gulp-uglify"),
+	jshint = require("gulp-jshint"),
 	rename = require("gulp-rename");
+
+gulp.task('dev', function(){
+	gulp
+		.start('jsLint')
+		.start('minify-js');
+});
+
+// task
+gulp.task('jsLint', function () {
+    gulp.src('./src/*.js') // path to your files
+    .pipe(jshint())
+    .pipe(jshint.reporter()); // Dump results
+});
  
 // task
 gulp.task('minify-js', function () {

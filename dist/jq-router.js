@@ -1,5 +1,5 @@
 /*!
- * jQ-Router JQuery Plugin v2.0.0
+ * jQ-Router JQuery Plugin v2.1.0
  * https://github.com/muzammilkm/jq-router
  *
  * Copyright 2017, Muzammil Khaja Mohammed
@@ -93,8 +93,9 @@
          * @return {string} 
          */
         s.href = function(routeName, params) {
-            var s = this;
-            routeName = routeName || defaultRoute,
+            routeName = routeName || defaultRoute;
+
+            var s = this,            
                 route = s.routes[routeName],
                 url = route.relativeUrl;
 
@@ -102,7 +103,7 @@
                 url = url.replace(':' + route.params[i], params[route.params[i]]);
             }
             return url;
-        }
+        };
 
         /**
          * Check route params are modified or not
@@ -183,7 +184,7 @@
             if (isFirstTime) {
                 renderEngine.setViewSelector(viewSelector);
                 $(window).on("hashchange", function() {
-                    s.onhashchange(window.location.hash)
+                    s.onhashchange(window.location.hash);
                 });
                 var route = s.match(window.location.hash);
                 if (!route) {
@@ -314,7 +315,7 @@
 
                 if (reload) {
                     $page.html(templateCache[_route.templateUrl]);
-                    $(window).trigger(events.renderViewSucess, [_route, params]);
+                    $(window).trigger(events.renderViewSucess, [route, params]);
                 }
             }
             return this;
