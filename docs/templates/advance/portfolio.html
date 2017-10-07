@@ -3,18 +3,45 @@
     <br>
     <div class="row">
         <div class="col-sm-12">
+            <div class="col-sm-6 text-left">
+                <a href="#" id="btnPrevious">
+                    < Previous </a>
+            </div>
+            <div class="col-sm-6 text-right">
+                <a href="#" id="btnNext">Next ></a>
+            </div>
+        </div>
+        <div class="col-sm-12">
             <p>Portfolio: <span id="portfolio"></span></p>
             <img src="https://placehold.it/1200x400?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
             </a>
         </div>
     </div>
+    <script type="text/javascript">
+    function init() {
+        function goToPrevious(params) {
+            return function(e) {
+                if (params.portfolioId > 1) {
+                    $.router.go('gallery.portfolio', { portfolioId: parseInt(params.portfolioId) - 1 });
+                }
+                return false;
+            };
+        }
+
+        function goToNext(params) {
+            return function(e) {
+                $.router.go('gallery.portfolio', { portfolioId: parseInt(params.portfolioId) + 1 });
+                return false;
+            };
+        }
+
+        $(window).off('jqRouter.renderViewSucess')
+            .on('jqRouter.renderViewSucess', function(e, route, params) {
+                $('#portfolio').text(params.portfolioId);
+                $("#btnPrevious").click(goToPrevious(params));
+                $("#btnNext").click(goToNext(params));
+            });
+    }
+    init();
+    </script>
 </div>
-<script type="text/javascript">
-function init() {
-    $(window).off('jqRouter.renderViewSucess')
-        .on('jqRouter.renderViewSucess', function(e, route, params) {
-            $('#portfolio').text(params.portfolioId);
-        });
-}
-init();
-</script>
