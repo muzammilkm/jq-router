@@ -95,7 +95,7 @@
         s.href = function(routeName, params) {
             routeName = routeName || defaultRoute;
 
-            var s = this,            
+            var s = this,
                 route = s.routes[routeName],
                 url = route.relativeUrl;
 
@@ -315,7 +315,7 @@
 
                 if (reload) {
                     $page.html(templateCache[_route.templateUrl]);
-                    $(window).trigger(events.renderViewSucess, [route, params]);
+                    $(window).trigger(events.renderViewSucess, [_route, route, params]);
                 }
             }
             return this;

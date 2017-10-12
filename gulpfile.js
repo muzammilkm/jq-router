@@ -4,7 +4,7 @@ var gulp = require('gulp'),
 	jshint = require("gulp-jshint"),
 	rename = require("gulp-rename");
 
-gulp.task('dev', function(){
+gulp.task('default', function(){
 	gulp
 		.start('jsLint')
 		.start('minify-js');

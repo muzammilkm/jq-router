@@ -36,7 +36,7 @@
         }
 
         $(window).off('jqRouter.renderViewSucess')
-            .on('jqRouter.renderViewSucess', function(e, route, params) {
+            .on('jqRouter.renderViewSucess', function(e, viewRoute, route, params) {
                 $('#portfolio').text(params.portfolioId);
                 $("#btnPrevious").click(goToPrevious(params));
                 $("#btnNext").click(goToNext(params));
