@@ -2,7 +2,7 @@ jQ-Router($.router)
 ===================
 Built on jQuery 1.3.0 & Inspried by (Angular ui-router & jQuery Single Page Application micro framework).
 
-# Features
+## Features
 1. Tiny
 2. Single Page Application (SPA)
 3. Routing
@@ -10,11 +10,32 @@ Built on jQuery 1.3.0 & Inspried by (Angular ui-router & jQuery Single Page Appl
 5. Nested Views
 
 
-# Demo
+## Demo
 1. [Basic](https://muzammilkm.github.io/jq-router/docs/basic.html)
 2. [Advance](https://muzammilkm.github.io/jq-router/docs/advance.html)
 
-# Introduction
+## Installation
+
+### Manual Installation
+
+Download the **jq-router.js** file or **jq-router.min.js** (*recommended*) file from dist folder and include it in your page either in the `<head>` section or just before the closing tag of the `<body>` section after including jquery librar.
+
+### NPM
+```
+> npm install jq-router.js
+```
+
+### Bower
+```
+$ bower install jq-router.js
+```
+
+### Nuget
+```
+PM> Install-Package jq-router.js
+```
+
+## Introduction
 A tiny jQuery plugin for building single page application (SPA) with the possiblily of nested views.
 
 Basic Example
@@ -44,7 +65,7 @@ Basic Example
 }());
 ```
 
-# Documentation
+## Documentation
 Routes is collection of route objects. Each route object consists of url, templateUrl & each route can be parent route of another route.
 
 ```javascript
