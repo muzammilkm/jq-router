@@ -30,11 +30,6 @@ Download the **jq-router.js** file or **jq-router.min.js** (*recommended*) file 
 $ bower install jq-router
 ```
 
-### Nuget
-```
-PM> Install-Package jq-router
-```
-
 ## Introduction
 A tiny jQuery plugin for building single page application (SPA) with the possiblily of nested views.
 
