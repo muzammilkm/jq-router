@@ -22,17 +22,17 @@ Download the **jq-router.js** file or **jq-router.min.js** (*recommended*) file 
 
 ### NPM
 ```
-> npm install jq-router.js
+> npm install jq-router
 ```
 
 ### Bower
 ```
-$ bower install jq-router.js
+$ bower install jq-router
 ```
 
 ### Nuget
 ```
-PM> Install-Package jq-router.js
+PM> Install-Package jq-router
 ```
 
 ## Introduction
