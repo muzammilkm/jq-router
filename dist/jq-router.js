@@ -13,8 +13,8 @@
     var router,
         events = {
             routeChangeStart: 'jqRouter.routeChangeStart',
-            routeChangeSucess: 'jqRouter.routeChangeSucess',
-            renderViewSucess: 'jqRouter.renderViewSucess',
+            routeChangeSuccess: 'jqRouter.routeChangeSuccess',
+            renderViewSuccess: 'jqRouter.renderViewSuccess',
             viewDestroyed: 'jqRouter.viewDestroyed'
         },
         current = {
@@ -154,11 +154,33 @@
                         renderEngine.render(matchedRoute, matchedParams);
                         current.route = matchedRoute;
                         current.params = matchedParams;
-                        $(window).trigger(events.routeChangeSucess, [matchedRoute, matchedParams]);
+                        $(window).trigger(events.routeChangeSuccess, [matchedRoute, matchedParams]);
                     });
             } else {
                 s.go(defaultRoute);
             }
+            return s;
+        };
+
+        /**
+         * Subscribe route change started event.
+         * @params {function} handler
+         * @return {object} this
+         */
+        s.onRouteBeforeChange = function(handler) {
+            var s = this;
+            $(window).on(events.routeChangeStart, handler);
+            return s;
+        };
+
+        /**
+         * Subscribe route change sucess event.
+         * @params {function} handler
+         * @return {object} this
+         */
+        s.onRouteChanged = function(handler) {
+            var s = this;
+            $(window).on(events.routeChangeSuccess, handler);
             return s;
         };
 
@@ -169,7 +191,7 @@
          */
         s.onViewChange = function(handler) {
             var s = this;
-            $(window).on(events.renderViewSucess, handler);
+            $(window).on(events.renderViewSuccess, handler);
             return s;
         };
 
@@ -194,6 +216,11 @@
         s.run = function(viewSelector, routeName, params) {
             var s = this;
             if (isFirstTime) {
+                if (window.location.pathname.lastIndexOf('.') === -1 && 
+                    window.location.pathname.substr(-1) !== '/') {
+                    window.location.pathname = window.location.pathname + '/';
+                    return;
+                }
                 renderEngine.setViewSelector(viewSelector);
                 $(window).on("hashchange", function() {
                     s.onhashchange(window.location.hash);
@@ -343,7 +370,7 @@
 
                 if (reload) {
                     $page.html(templateCache[_route.templateUrl]);
-                    $(window).trigger(events.renderViewSucess, [_route, route, params]);
+                    $(window).trigger(events.renderViewSuccess, [_route, route, params]);
                 }
             }
             return this;

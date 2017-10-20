@@ -216,6 +216,11 @@
         s.run = function(viewSelector, routeName, params) {
             var s = this;
             if (isFirstTime) {
+                if (window.location.pathname.lastIndexOf('.') === -1 && 
+                    window.location.pathname.substr(-1) !== '/') {
+                    window.location.pathname = window.location.pathname + '/';
+                    return;
+                }
                 renderEngine.setViewSelector(viewSelector);
                 $(window).on("hashchange", function() {
                     s.onhashchange(window.location.hash);
