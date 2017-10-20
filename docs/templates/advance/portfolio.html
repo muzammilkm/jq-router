@@ -41,6 +41,12 @@
                 $("#btnPrevious").click(goToPrevious(params));
                 $("#btnNext").click(goToNext(params));
             });
+
+        $(window).off('jqRouter.viewDestroyed')
+            .on('jqRouter.viewDestroyed', function(e, viewRoute) {
+                $("#btnPrevious").off('click');
+                $("#btnNext").off('click');
+            });
     }
     init();
     </script>

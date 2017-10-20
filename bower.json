@@ -1,0 +1,35 @@
+{
+  "name": "jq-router",
+  "description": "A tiny jQuery plugin for building single page application (SPA) with the possibility of nested views",
+  "main": "index.js",
+  "authors": [
+    "Muzammil Khaja Mohmmaed <muzammilkm@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+     "jQuery",
+    "plugin",
+    "jquery-plugin",
+    "single",
+    "plage",
+    "application",
+    "spa",
+    "jq-router",
+    "router",
+    "ui-router",
+    "routes",
+    "controller",
+    "model",
+    "view",
+    "rendering",
+    "view rendering"
+  ],
+  "homepage": "https://github.com/muzammilkm/jq-router",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

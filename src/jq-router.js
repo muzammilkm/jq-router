@@ -13,8 +13,9 @@
     var router,
         events = {
             routeChangeStart: 'jqRouter.routeChangeStart',
-            routeChangeSucess: 'jqRouter.routeChangeSucess',
-            renderViewSucess: 'jqRouter.renderViewSucess'
+            routeChangeSuccess: 'jqRouter.routeChangeSuccess',
+            renderViewSuccess: 'jqRouter.renderViewSuccess',
+            viewDestroyed: 'jqRouter.viewDestroyed'
         },
         current = {
             route: {},
@@ -153,11 +154,33 @@
                         renderEngine.render(matchedRoute, matchedParams);
                         current.route = matchedRoute;
                         current.params = matchedParams;
-                        $(window).trigger(events.routeChangeSucess, [matchedRoute, matchedParams]);
+                        $(window).trigger(events.routeChangeSuccess, [matchedRoute, matchedParams]);
                     });
             } else {
                 s.go(defaultRoute);
             }
+            return s;
+        };
+
+        /**
+         * Subscribe route change started event.
+         * @params {function} handler
+         * @return {object} this
+         */
+        s.onRouteBeforeChange = function(handler) {
+            var s = this;
+            $(window).on(events.routeChangeStart, handler);
+            return s;
+        };
+
+        /**
+         * Subscribe route change sucess event.
+         * @params {function} handler
+         * @return {object} this
+         */
+        s.onRouteChanged = function(handler) {
+            var s = this;
+            $(window).on(events.routeChangeSuccess, handler);
             return s;
         };
 
@@ -168,7 +191,18 @@
          */
         s.onViewChange = function(handler) {
             var s = this;
-            $(window).on(events.renderViewSucess, handler);
+            $(window).on(events.renderViewSuccess, handler);
+            return s;
+        };
+
+        /**
+         * Subscribe view destroy event.
+         * @params {function} handler
+         * @return {object} this
+         */
+        s.onViewDestroyed = function(handler) {
+            var s = this;
+            $(window).on(events.viewDestroyed, handler);
             return s;
         };
 
@@ -261,6 +295,18 @@
             viewSelector;
 
         /**
+         * Raise view destroy event before it can render the view.
+         * @params {string} url
+         * @return {object} deferred
+         */
+        s.clean = function(segments, till) {
+            for (var i = segments.length - 1; i >= till; i--) {
+                var _route = router.getRouteName(segments[i]);
+                $(window).trigger(events.viewDestroyed, [_route]);
+            }
+        };
+
+        /**
          * Download the template from server via ajax call.
          * @params {string} url
          * @return {object} deferred
@@ -311,11 +357,15 @@
                 if (!reload) {
                     reload = (route.segments[i] !== currentRoute.segments[i]) ||
                         (router.isRouteParamChanged(route.segments[i], params));
+                    if (reload) {
+                        s.clean(currentRoute.segments, i);
+                    }
                 }
+
 
                 if (reload) {
                     $page.html(templateCache[_route.templateUrl]);
-                    $(window).trigger(events.renderViewSucess, [_route, route, params]);
+                    $(window).trigger(events.renderViewSuccess, [_route, route, params]);
                 }
             }
             return this;

@@ -8,7 +8,8 @@ Built on jQuery 1.3.0 & Inspried by (Angular ui-router & jQuery Single Page Appl
 3. Routing
 4. Seperation Concerns
 5. Nested Views
-
+6. Events
+7. Supports Navigation via both href & javascript
 
 ## Demo
 1. [Basic](https://muzammilkm.github.io/jq-router/docs/basic.html)
@@ -106,3 +107,74 @@ $.when($.ready)
 > Run takes two parameters 
 * View selector, This will be used to match element & replace the template.
 * On Initial load, Navigate to a route.
+
+### Events
+There are about 4 events, you can listen to these events or subscribe to events via router.
+
+##### This event is trigged when before current route is changed.
+* Window Event
+* Matched Route
+* Matched Params
+
+```javascript
+$(window).trigger('jqRouter.routeChangeStart', function(e, route, params){
+	// ...
+});
+
+//or
+
+$.router.onRouteBeforeChange( function(e, route, params){
+	// ...
+});
+
+```
+
+##### This event is trigged when current route is changed.
+* Window Event
+* Current Route
+* Current Params
+
+```javascript
+$(window).trigger('jqRouter.routeChangeSuccess', function(e, route, params){
+	// ...
+});
+
+//or
+
+$.router.onRouteChanged( function(e, route, params){
+	// ...
+});
+```
+
+##### This event is trigged when view is loaded in to dom & either controller or viewmodel can be initiated.
+* Window Event
+* View Route
+* Matched Route
+* Matched Params
+
+```javascript
+$(window).trigger('jqRouter.renderViewSuccess', function(e, viewRoute, route, params){
+	// ...
+});
+
+//or
+
+$.router.onViewChange( function(e, viewRoute, route, params){
+	// ...
+});
+```
+##### This event is trigged when view unloaded from dom. In a nested view they will be trigged from bottom to top last route that is getting changed
+* Window Event
+* View Route
+
+```javascript
+$(window).trigger('jqRouter.viewDestroyed', function(e, viewRoute){
+	// ...
+});
+
+//or
+
+$.router.onViewChange( function(e, viewRoute){
+	// ...
+});
+```

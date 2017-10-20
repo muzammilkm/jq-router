@@ -14,7 +14,8 @@
         events = {
             routeChangeStart: 'jqRouter.routeChangeStart',
             routeChangeSucess: 'jqRouter.routeChangeSucess',
-            renderViewSucess: 'jqRouter.renderViewSucess'
+            renderViewSucess: 'jqRouter.renderViewSucess',
+            viewDestroyed: 'jqRouter.viewDestroyed'
         },
         current = {
             route: {},
@@ -173,6 +174,17 @@
         };
 
         /**
+         * Subscribe view destroy event.
+         * @params {function} handler
+         * @return {object} this
+         */
+        s.onViewDestroyed = function(handler) {
+            var s = this;
+            $(window).on(events.viewDestroyed, handler);
+            return s;
+        };
+
+        /**
          * Initialize the router & this should be invoked on document ready.
          * @params {string} viewSelector
          * @params {string} routeName
@@ -261,6 +273,18 @@
             viewSelector;
 
         /**
+         * Raise view destroy event before it can render the view.
+         * @params {string} url
+         * @return {object} deferred
+         */
+        s.clean = function(segments, till) {
+            for (var i = segments.length - 1; i >= till; i--) {
+                var _route = router.getRouteName(segments[i]);
+                $(window).trigger(events.viewDestroyed, [_route]);
+            }
+        };
+
+        /**
          * Download the template from server via ajax call.
          * @params {string} url
          * @return {object} deferred
@@ -311,7 +335,11 @@
                 if (!reload) {
                     reload = (route.segments[i] !== currentRoute.segments[i]) ||
                         (router.isRouteParamChanged(route.segments[i], params));
+                    if (reload) {
+                        s.clean(currentRoute.segments, i);
+                    }
                 }
+
 
                 if (reload) {
                     $page.html(templateCache[_route.templateUrl]);

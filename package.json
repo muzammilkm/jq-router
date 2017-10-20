@@ -1,10 +1,10 @@
 {
   "name": "jq-router",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "description": "A tiny jQuery plugin for building single page application (SPA) with the possibility of nested views",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mochify"
   },
   "repository": {
     "type": "git",
@@ -17,9 +17,18 @@
     "single",
     "plage",
     "application",
-    "spa"
+    "spa",
+    "jq-router",
+    "router",
+    "ui-router",
+    "routes",
+    "controller",
+    "model",
+    "view",
+    "rendering",
+    "view rendering"
   ],
-  "author": "Muzammil Khaja Mohmmaed",
+  "author": "Muzammil Khaja Mohmmaed <muzammilkm@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/muzammilkm/jq-router/issues"
@@ -27,9 +36,12 @@
   "homepage": "https://github.com/muzammilkm/jq-router#readme",
   "dependencies": {},
   "devDependencies": {
+    "chai": "^4.1.2",
     "gulp-jshint": "^2.0.4",
     "gulp-uglify": "^3.0.0",
     "jquery": "^3.2.1",
-    "jshint": "^2.9.5"
+    "jshint": "^2.9.5",
+    "mocha": "^4.0.1",
+    "mochify": "^3.3.0"
   }
 }
