@@ -21,6 +21,7 @@
             route: {},
             params: {}
         },
+        paramSrv,
         renderEngine;
 
     router = (function() {
@@ -72,7 +73,7 @@
                 params[route.params[i]] = match[i + 1];
             }
 
-            return params;
+            return $.extend({}, paramSrv.getParams(), params);
         };
 
         /**
@@ -83,6 +84,7 @@
          */
         s.go = function(routeName, params) {
             var s = this;
+            paramSrv.setParams(params);
             window.location = s.href(routeName, params);
             return s;
         };
@@ -216,7 +218,7 @@
         s.run = function(viewSelector, routeName, params) {
             var s = this;
             if (isFirstTime) {
-                if (window.location.pathname.lastIndexOf('.') === -1 && 
+                if (window.location.pathname.lastIndexOf('.') === -1 &&
                     window.location.pathname.substr(-1) !== '/') {
                     window.location.pathname = window.location.pathname + '/';
                     return;
@@ -294,7 +296,7 @@
     }());
 
 
-    renderEngine = (function(router) {
+    renderEngine = (function() {
         var s = {},
             templateCache = {},
             viewSelector;
@@ -387,7 +389,22 @@
         };
 
         return s;
-    }(router));
+    }());
+
+    paramSrv = function() {
+        var s = {},
+            params;
+
+        s.setParams = function(p){
+            params = p;
+        };
+
+        s.getParams = function(){
+            return params;
+        };
+
+        return s;
+    }();
 
     $.router = router;
 }(jQuery, this));
