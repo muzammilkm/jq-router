@@ -252,12 +252,12 @@
                     _routeName = [],
                     relativeUrl = '',
                     urlExpr = '',
-                    route = s.routes[routeName] = {
-                        segments: [],
-                        params: []
-                    },
+                    route = s.routes[routeName] = jQuery.extend(true, {}, data[routeName]),
                     paramMatch;
 
+                route.name = routeName;
+                route.segments = [];
+                route.params = [];
                 for (var i = 0; i < segments.length; i++) {
                     _routeName.push(segments[i]);
                     var segment = _routeName.join('.');
@@ -270,13 +270,8 @@
                     route.params.push(paramMatch[1]);
                 }
                 urlExpr = new RegExp(relativeUrl.replace(expr.Param_Matcher, expr.Param_Replacer) + "$");
-
-                route.abstract = data[routeName].abstract;
-                route.name = routeName;
                 route.relativeUrl = relativeUrl;
                 route.urlExpr = urlExpr;
-                route.templateUrl = data[routeName].templateUrl;
-                route.controller = data[routeName].controller;
             }
             return s;
         };
