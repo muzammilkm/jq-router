@@ -30,13 +30,15 @@
 
         function goToNext(params) {
             return function(e) {
-                $.router.go('gallery.portfolio', { portfolioId: parseInt(params.portfolioId) + 1 });
+                if (params.portfolioId < 8) {
+                    $.router.go('gallery.portfolio', { portfolioId: parseInt(params.portfolioId) + 1 });
+                }
                 return false;
             };
         }
 
-        $(window).off('jqRouter.renderViewSucess')
-            .on('jqRouter.renderViewSucess', function(e, viewRoute, route, params) {
+        $(window).off('jqRouter.renderViewSuccess')
+            .on('jqRouter.renderViewSuccess', function(e, viewRoute, route, params) {
                 $('#portfolio').text(params.portfolioId);
                 $("#btnPrevious").click(goToPrevious(params));
                 $("#btnNext").click(goToNext(params));
