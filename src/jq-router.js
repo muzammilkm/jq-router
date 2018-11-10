@@ -1,28 +1,20 @@
 /*!
- * jQ-Router JQuery Plugin v2.1.0
+ * jQ-Router JQuery Plugin v4.0.0
  * https://github.com/muzammilkm/jq-router
  *
  * Copyright 2017, Muzammil Khaja Mohammed
  * Licensed under the MIT license.
  * https://github.com/muzammilkm/jq-router/blob/master/LICENSE
  *
- * Date: Tue Oct 1 10:36:25 2017 +0530
+ * Date: Tue Nov 10 6:00:00 2018 +0530
  */
 
 (function($, window) {
     var router,
-        events = {
-            routeChangeStart: 'jqRouter.routeChangeStart',
-            routeChangeSuccess: 'jqRouter.routeChangeSuccess',
-            renderViewSuccess: 'jqRouter.renderViewSuccess',
-            viewDestroyed: 'jqRouter.viewDestroyed'
-        },
         current = {
             route: {},
             params: {}
-        },
-        paramSrv,
-        renderEngine;
+        };
 
     router = (function() {
         var s = {},
@@ -51,7 +43,7 @@
 
         /**
          * Get route by name
-         * @params {string} routeName
+         * @param {string} routeName
          * @return {object} route
          */
         s.getRouteName = function(routeName) {
@@ -61,7 +53,7 @@
 
         /**
          * Get route params
-         * @params {object} route
+         * @param {object} route
          * @return {object} params
          */
         s.getRouteParams = function(route) {
@@ -73,26 +65,26 @@
                 params[route.params[i]] = match[i + 1];
             }
 
-            return $.extend({}, paramSrv.getParams(), params);
+            return $.extend({}, s.paramService.getParams(), params);
         };
 
         /**
          * Navigates to given route name & params
-         * @params {string} routeName
-         * @params {object} params
+         * @param {string} routeName
+         * @param {object} params
          * @return {object} this
          */
         s.go = function(routeName, params) {
             var s = this;
-            paramSrv.setParams(params);
+            s.paramService.setParams(params);
             window.location = s.href(routeName, params);
             return s;
         };
 
         /**
          * Get url for given route name & params
-         * @params {string} routeName
-         * @params {object} params
+         * @param {string} routeName
+         * @param {object} params
          * @return {string} 
          */
         s.href = function(routeName, params) {
@@ -110,8 +102,8 @@
 
         /**
          * Check route params are modified or not
-         * @params {string} routeName
-         * @params {object} params
+         * @param {string} routeName
+         * @param {object} params
          * @return {bool} 
          */
         s.isRouteParamChanged = function(routeName, params) {
@@ -121,7 +113,7 @@
 
         /**
          * Return matched route based on url
-         * @params {string} url
+         * @param {string} url
          * @return {object} route
          */
         s.match = function(url) {
@@ -137,7 +129,7 @@
 
         /**
          * Listen to url change events & should not be called outside of router.
-         * @params {string} hash
+         * @param {string} hash
          * @return {object} this
          */
         s.onhashchange = function(hash) {
@@ -150,69 +142,31 @@
                 matchedRoute.url = hash;
                 matchedParams = s.getRouteParams(matchedRoute);
 
-                $(window).trigger(events.routeChangeStart, [matchedRoute, matchedParams]);
-                renderEngine.processRoute(matchedRoute)
+                $(window).trigger(s.events.routeMatched, [matchedRoute, matchedParams]);
+
+                s.renderEngine
+                    .processRoute(matchedRoute, matchedParams)
                     .then(function() {
-                        renderEngine.render(matchedRoute, matchedParams);
+                        $(window).trigger(s.events.routeChangeStart, [matchedRoute, matchedParams]);
+                        s.renderEngine.render(matchedRoute, matchedParams);
                         current.route = matchedRoute;
                         current.params = matchedParams;
-                        $(window).trigger(events.routeChangeSuccess, [matchedRoute, matchedParams]);
+                        $(window).trigger(s.events.routeChangeSuccess, [matchedRoute, matchedParams]);
                     });
             } else {
-                s.go(defaultRoute);
+                $(window).trigger(s.events.routeNotMatched, [matchedRoute, matchedParams]);
+                if (defaultRoute) {
+                    s.go(defaultRoute);
+                }
             }
             return s;
         };
 
         /**
-         * Subscribe route change started event.
-         * @params {function} handler
-         * @return {object} this
-         */
-        s.onRouteBeforeChange = function(handler) {
-            var s = this;
-            $(window).on(events.routeChangeStart, handler);
-            return s;
-        };
-
-        /**
-         * Subscribe route change sucess event.
-         * @params {function} handler
-         * @return {object} this
-         */
-        s.onRouteChanged = function(handler) {
-            var s = this;
-            $(window).on(events.routeChangeSuccess, handler);
-            return s;
-        };
-
-        /**
-         * Subscribe view change event.
-         * @params {function} handler
-         * @return {object} this
-         */
-        s.onViewChange = function(handler) {
-            var s = this;
-            $(window).on(events.renderViewSuccess, handler);
-            return s;
-        };
-
-        /**
-         * Subscribe view destroy event.
-         * @params {function} handler
-         * @return {object} this
-         */
-        s.onViewDestroyed = function(handler) {
-            var s = this;
-            $(window).on(events.viewDestroyed, handler);
-            return s;
-        };
-
-        /**
          * Initialize the router & this should be invoked on document ready.
-         * @params {string} viewSelector
-         * @params {string} routeName
-         * @params {object} params
+         * @param {string} viewSelector
+         * @param {string} routeName
+         * @param {object} params
          * @return {object} this
          */
         s.run = function(viewSelector, routeName, params) {
@@ -223,7 +177,7 @@
                     window.location.pathname = window.location.pathname + '/';
                     return;
                 }
-                renderEngine.setViewSelector(viewSelector);
+                s.renderEngine.setViewSelector(viewSelector);
                 $(window).on("hashchange", function() {
                     s.onhashchange(window.location.hash);
                 });
@@ -240,7 +194,7 @@
 
         /**
          * Set route data by preparing params & expression.
-         * @params {object} data
+         * @param {object} data
          * @return {object} this
          */
         s.setData = function(data) {
@@ -278,7 +232,7 @@
 
         /**
          * Set default route name, if route is not found will resort to this.
-         * @params {string} name
+         * @param {string} name
          * @return {object} this
          */
         s.setDefault = function(name) {
@@ -289,117 +243,6 @@
 
         return s;
     }());
-
-
-    renderEngine = (function() {
-        var s = {},
-            templateCache = {},
-            viewSelector;
-
-        /**
-         * Raise view destroy event before it can render the view.
-         * @params {string} url
-         * @return {object} deferred
-         */
-        s.clean = function(segments, till) {
-            for (var i = segments.length - 1; i >= till; i--) {
-                var _route = router.getRouteName(segments[i]);
-                $(window).trigger(events.viewDestroyed, [_route]);
-            }
-        };
-
-        /**
-         * Download the template from server via ajax call.
-         * @params {string} url
-         * @return {object} deferred
-         */
-        s.getViewTemplate = function(url) {
-            return $.get({
-                    url: url,
-                    dataType: 'html'
-                })
-                .then(function(content) {
-                    templateCache[url] = content;
-                });
-        };
-
-        /**
-         * Check route template available in template cache or download the template.
-         * @params {object} route
-         * @return {object} deferred
-         */
-        s.processRoute = function(route) {
-            var s = this,
-                requests = [];
-
-            for (var i = 0; i < route.segments.length; i++) {
-                var _route = router.getRouteName(route.segments[i]);
-                if (!templateCache[_route.templateUrl]) {
-                    requests.push(s.getViewTemplate(_route.templateUrl));
-                }
-            }
-
-            return $.when.apply($, requests);
-        };
-
-        /**
-         * Render changed route from template cache & notify successfully rendered view.
-         * @params {object} route
-         * @params {object} params
-         * @return {object} this
-         */
-        s.render = function(route, params) {
-            var currentRoute = router.getCurrentRoute(),
-                reload = $.isEmptyObject(currentRoute);
-
-            for (var i = 0; i < route.segments.length; i++) {
-                var _route = router.getRouteName(route.segments[i]),
-                    $page = $(viewSelector + ':eq(' + i + ')');
-
-                if (!reload) {
-                    reload = (route.segments[i] !== currentRoute.segments[i]) ||
-                        (router.isRouteParamChanged(route.segments[i], params));
-                    if (reload) {
-                        s.clean(currentRoute.segments, i);
-                    }
-                }
-
-
-                if (reload) {
-                    $page.html(templateCache[_route.templateUrl]);
-                    $(window).trigger(events.renderViewSuccess, [_route, route, params]);
-                }
-            }
-            return this;
-        };
-
-        /**
-         * Set view selector for render engine to be used.
-         * @params {string} selector
-         * @return {object} this
-         */
-        s.setViewSelector = function(selector) {
-            viewSelector = selector;
-            return this;
-        };
-
-        return s;
-    }());
-
-    paramSrv = function() {
-        var s = {},
-            params;
-
-        s.setParams = function(p){
-            params = p;
-        };
-
-        s.getParams = function(){
-            return params;
-        };
-
-        return s;
-    }();
 
     $.router = router;
 }(jQuery, this));

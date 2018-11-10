@@ -1,5 +1,13 @@
 (function($) {
 
+    function wait() {
+        var defer = $.Deferred();
+        setTimeout(function() {
+            defer.resolve();
+        }, 2000);
+        return defer;
+    };
+
     var routes = {},
         defaultRoute = 'home';
 
@@ -31,6 +39,7 @@
 
     routes['contact'] = {
         url: '#/contact',
+        resolve: wait,
         templateUrl: 'templates/advance/contact.html'
     };
 
