@@ -99,6 +99,11 @@ templateUrl: ''
 > Path to render the view in matched view selector.
 
 ```javascript
+resolve: callback //function or [] of function
+```
+> A callback function or array of function's which is executed when a route is matched & route is rendered only when all deferred objects are resolved.s
+
+```javascript
 $.when($.ready)
   .then(function() {
 	$.router.run('.ui-view', 'home');
