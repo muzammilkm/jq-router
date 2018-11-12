@@ -1,0 +1,31 @@
+/* Styles go here */
+
+#footer{
+  clear: both;
+}
+#categories li, #sub-categories li{
+  padding: 25px;
+  margin: 10px;
+  float: left;
+  list-style: none;
+  width: 150px;
+  background: rgb(37, 167, 59);
+}
+#categories li:hover,
+#sub-categories li:hover{
+  background: rgb(143, 167, 37);
+}
+#categories li a,
+#sub-categories li a{
+    color: crimson;
+}
+
+#products li{
+  padding: 25px;
+  margin: 10px;
+  float: left;
+  list-style: none;
+  width: 100px;
+  height: 150px;
+  background: rgb(37, 167, 59);
+}
