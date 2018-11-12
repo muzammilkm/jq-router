@@ -91,12 +91,12 @@
 
                 if (!reload) {
                     reload = (route.segments[i] !== currentRoute.segments[i]) ||
+                        (i + 1 === route.segments.length) ||
                         (router.isRouteParamChanged(route.segments[i], params));
                     if (reload) {
                         s.clean(currentRoute.segments, i);
                     }
                 }
-
 
                 if (reload) {
                     $page.html(templateCache[_route.templateUrl]);
@@ -118,5 +118,5 @@
 
         return s;
     }());
-    
+
 }(jQuery, $.router));

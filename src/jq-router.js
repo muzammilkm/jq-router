@@ -223,7 +223,7 @@
                 while ((paramMatch = expr.Param_Matcher.exec(relativeUrl)) !== null) {
                     route.params.push(paramMatch[1]);
                 }
-                urlExpr = new RegExp(relativeUrl.replace(expr.Param_Matcher, expr.Param_Replacer) + "$");
+                urlExpr = new RegExp("^" + relativeUrl.replace(expr.Param_Matcher, expr.Param_Replacer) + "$");
                 route.relativeUrl = relativeUrl;
                 route.urlExpr = urlExpr;
             }

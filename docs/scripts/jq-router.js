@@ -223,7 +223,7 @@
                 while ((paramMatch = expr.Param_Matcher.exec(relativeUrl)) !== null) {
                     route.params.push(paramMatch[1]);
                 }
-                urlExpr = new RegExp(relativeUrl.replace(expr.Param_Matcher, expr.Param_Replacer) + "$");
+                urlExpr = new RegExp("^" + relativeUrl.replace(expr.Param_Matcher, expr.Param_Replacer) + "$");
                 route.relativeUrl = relativeUrl;
                 route.urlExpr = urlExpr;
             }
@@ -459,12 +459,12 @@
 
                 if (!reload) {
                     reload = (route.segments[i] !== currentRoute.segments[i]) ||
+                        (i + 1 === route.segments.length) ||
                         (router.isRouteParamChanged(route.segments[i], params));
                     if (reload) {
                         s.clean(currentRoute.segments, i);
                     }
                 }
-
 
                 if (reload) {
                     $page.html(templateCache[_route.templateUrl]);
@@ -486,5 +486,5 @@
 
         return s;
     }());
-    
+
 }(jQuery, $.router));
