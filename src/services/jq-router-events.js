@@ -1,5 +1,5 @@
 /*!
- * jQ-Router JQuery Plugin v4.0.0
+ * jQ-Router JQuery Plugin v4.3.0
  * https://github.com/muzammilkm/jq-router
  *
  * Copyright 2017, Muzammil Khaja Mohammed
