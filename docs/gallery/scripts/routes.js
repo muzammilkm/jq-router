@@ -13,34 +13,34 @@
 
     routes['home'] = {
         url: '#/',
-        templateUrl: 'templates/advance/home.html'
+        templateUrl: 'templates/home.html'
     };
 
     routes['about'] = {
         url: '#/about',
-        templateUrl: 'templates/advance/about.html'
+        templateUrl: 'templates/about.html'
     };
 
     routes['gallery'] = {
         abstract: true,
         url: '#/gallery',
-        templateUrl: 'templates/advance/gallery.html'
+        templateUrl: 'templates/gallery.html'
     };
 
     routes['gallery.dashboard'] = {
         url: '',
-        templateUrl: 'templates/advance/gallery_dashboard.html'
+        templateUrl: 'templates/gallery_dashboard.html'
     };
 
     routes['gallery.portfolio'] = {
         url: '/portfolio/:portfolioId',
-        templateUrl: 'templates/advance/portfolio.html'
+        templateUrl: 'templates/portfolio.html'
     };
 
     routes['contact'] = {
         url: '#/contact',
         resolve: wait,
-        templateUrl: 'templates/advance/contact.html'
+        templateUrl: 'templates/contact.html'
     };
 
     $.router

@@ -12,8 +12,22 @@ Built on jQuery 1.3.0 & Inspried by (Angular ui-router & jQuery Single Page Appl
 7. Supports Navigation via both href & javascript
 
 ## Demo
-1. [Basic](https://muzammilkm.github.io/jq-router/docs/basic.html)
-2. [Advance](https://muzammilkm.github.io/jq-router/docs/advance.html)
+* [Simple](https://muzammilkm.github.io/jq-router/docs/simple/index.html)
+	* Easy & Simple
+* [Nested Views](https://muzammilkm.github.io/jq-router/docs/nested-views/index.html)
+	* Nested View (Parent > Child > Grand Child)
+* [Lazy Store](https://muzammilkm.github.io/jq-router/docs/lazy-store/index.html)
+	* Nested View
+	* View Model
+	* Accessing Params
+	* Generating Urls (via $.router.href)
+* [Admin Portal](https://muzammilkm.github.io/jq-router/docs/admin-portal/index.html)
+	* Deferred Execution of Route(via resolve)
+	* Redirection (via $.router.go)
+* [Gallery](https://muzammilkm.github.io/jq-router/docs/gallery/index.html)
+	* Accessing Params
+	* Nested Views
+	* Abstract Views
 
 ## Installation
 

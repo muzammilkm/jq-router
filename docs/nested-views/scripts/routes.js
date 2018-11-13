@@ -39,8 +39,5 @@
   $.when($.ready).then(function() {
     $.router.run('.my-view', 'pages');
   });
-
-  $.router.onRouteMatched( function(e, route, params){
-    console.log(route.name);
-});
+  
 })(jQuery);
