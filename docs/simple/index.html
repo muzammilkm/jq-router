@@ -7,32 +7,36 @@
 	<div class="menu">
 		<a href="#/">Home</a> | <a href="#/contact">Contact</a>
 	</div>
-    <div class="my-view"></div>
-    <script type="text/javascript" src="../scripts/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="../scripts/jq-router.js"></script>
-    <script type="text/javascript">
-	    var routes = {},
-	        defaultRoute = 'home';
+	<div class="my-view"></div>
+	<footer class="footer">
+		<p>jq-router is maintained by <a href="https://github.com/muzammilkm">muzammilkm</a></p>
+		<p>go to jq-router <a href="/jq-router">documentation</a></p>
+	</footer>
+	<script type="text/javascript" src="../scripts/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../scripts/jq-router.js"></script>
+	<script type="text/javascript">
+		var routes = {},
+			defaultRoute = 'home';
 
-	    routes['home'] = {
-	        url: '#/',
-	        templateUrl: 'templates/home.html'
-	    };
+		routes['home'] = {
+			url: '#/',
+			templateUrl: 'templates/home.html'
+		};
 
-	    routes['contact'] = {
-	        url: '#/contact',
-	        templateUrl: 'templates/contact.html'
-	    };
+		routes['contact'] = {
+			url: '#/contact',
+			templateUrl: 'templates/contact.html'
+		};
 
-	    $.router
-	        .setData(routes)
-	        .setDefault(defaultRoute);
+		$.router
+			.setData(routes)
+			.setDefault(defaultRoute);
 
-	      $.when($.ready)
-	        .then(function() {
-	            $.router.run('.my-view','home');
-	        });
-    </script>
+		$.when($.ready)
+			.then(function() {
+				$.router.run('.my-view', 'home');
+			});
+	</script>
 </body>
 
 </html>
