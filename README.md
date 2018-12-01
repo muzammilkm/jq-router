@@ -1,11 +1,14 @@
 jQ-Router($.router)
 ===================
+[![npm](https://img.shields.io/npm/v/jq-router.svg)](https://www.npmjs.com/package/jq-router)
+
 Built on jQuery 1.3.0 & Inspried by (Angular ui-router & jQuery Single Page Application micro framework).
+
 
 ## Features
 1. Tiny
-2. Single Page Application (SPA)
-3. Routing
+2. Pure jQuery based Single Page Application (SPA)
+3. State based routing
 4. Seperation Concerns
 5. Nested Views
 6. Events
