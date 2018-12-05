@@ -33,7 +33,7 @@
   "bugs": {
     "url": "https://github.com/muzammilkm/jq-router/issues"
   },
-  "homepage": "https://github.com/muzammilkm/jq-router#readme",
+  "homepage": "https://muzammilkm.github.io/jq-router",
   "dependencies": {
     "gulp": "^3.9.1",
     "jquery": "^3.2.1"

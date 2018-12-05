@@ -131,7 +131,18 @@ $.when($.ready)
 * On Initial load, Navigate to a route.
 
 ### Events
-There are about 6 events, you can listen to these events or subscribe to events via router.
+There are about 6 events, you can listen to these events or subscribe to events via router. Events are triggered in the following order.
+
+#### Event Trigger Order 
+If Route Matched:
+```javascript
+	onRouteMatched -> onRouteBeforeChange -> onViewDestroyed -> onViewChange -> onRouteChanged
+```
+
+If Route Not Matched:
+```javascript
+	onRouteNotMatched
+```
 
 ##### This event is trigged when view is loaded in to dom & either controller or viewmodel can be initiated.
 * Window Event
