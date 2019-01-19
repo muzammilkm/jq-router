@@ -17,7 +17,9 @@
         };
 
     router = (function() {
-        var s = {},
+        var s = {
+                routes: {}
+            },
             isFirstTime = true,
             defaultRoute,
             expr = {
@@ -89,6 +91,9 @@
          */
         s.href = function(routeName, params) {
             routeName = routeName || defaultRoute;
+            if(!s.routes[routeName]){
+                return;
+            }
 
             var s = this,
                 route = s.routes[routeName],
@@ -122,6 +127,7 @@
             for (var routeName in s.routes) {
                 if (!s.routes[routeName].abstract && s.routes[routeName].urlExpr.exec(url) !== null) {
                     route = s.routes[routeName];
+                    break;
                 }
             }
             return route;

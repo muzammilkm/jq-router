@@ -1,3 +1,3 @@
 node_modules/
-.nyc_output/bac7bb995d410b13858260f53cde1c87.json
-coverage/base.css
+coverage/
+.nyc_output/

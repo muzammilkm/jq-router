@@ -17,7 +17,9 @@
         };
 
     router = (function() {
-        var s = {},
+        var s = {
+                routes: {}
+            },
             isFirstTime = true,
             defaultRoute,
             expr = {
@@ -75,9 +77,12 @@
          * @return {object} this
          */
         s.go = function(routeName, params) {
-            var s = this;
-            s.paramService.setParams(params);
-            window.location = s.href(routeName, params);
+            var s = this,
+                url = s.href(routeName, params);
+            if (url) {
+                s.paramService.setParams(params);
+                window.location = url;
+            }
             return s;
         };
 
@@ -89,11 +94,13 @@
          */
         s.href = function(routeName, params) {
             routeName = routeName || defaultRoute;
-
             var s = this,
-                route = s.routes[routeName],
-                url = route.relativeUrl;
+                route = s.routes[routeName];
+            if (!route) {
+                return;
+            }
 
+            var url = route.relativeUrl;
             for (var i = 0; i < route.params.length; i++) {
                 url = url.replace(':' + route.params[i], params[route.params[i]]);
             }
@@ -122,6 +129,7 @@
             for (var routeName in s.routes) {
                 if (!s.routes[routeName].abstract && s.routes[routeName].urlExpr.exec(url) !== null) {
                     route = s.routes[routeName];
+                    break;
                 }
             }
             return route;
