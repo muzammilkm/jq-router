@@ -197,9 +197,10 @@
          * @param {object} data
          * @return {object} this
          */
-        s.setData = function(data) {
+        s.setData = function(data, isCacheTempalte) {
             var s = this;
 
+            isCacheTempalte = isCacheTempalte === undefined ? true : isCacheTempalte;
             s.routes = {};
             for (var routeName in data) {
                 var segments = routeName.split('.'),
@@ -226,6 +227,7 @@
                 urlExpr = new RegExp("^" + relativeUrl.replace(expr.Param_Matcher, expr.Param_Replacer) + "$");
                 route.relativeUrl = relativeUrl;
                 route.urlExpr = urlExpr;
+                route.cache = route.hasOwnProperty("cache") ? route.cache : isCacheTempalte;
             }
             return s;
         };
@@ -403,9 +405,10 @@
          * @param {string} url
          * @return {object} deferred
          */
-        s.getViewTemplate = function(url) {
+        s.getViewTemplate = function(url, cache) {
             return $.get({
                     url: url,
+                    cache: cache,
                     dataType: 'html'
                 })
                 .then(function(content) {
@@ -435,8 +438,8 @@
                     requests.push(_route.resolve(route, params));
                 }
 
-                if (!templateCache[_route.templateUrl]) {
-                    requests.push(s.getViewTemplate(_route.templateUrl));
+                if (!templateCache[_route.templateUrl] || !_route.cache) {
+                    requests.push(s.getViewTemplate(_route.templateUrl, _route.cache));
                 }
             }
 

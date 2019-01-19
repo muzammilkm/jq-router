@@ -17,6 +17,9 @@ Built on jQuery 1.3.0 & Inspried by (Angular ui-router & jQuery Single Page Appl
 ## Demo
 * [Simple](https://muzammilkm.github.io/jq-router/docs/simple/index.html)
 	* Easy & Simple
+* [Simple-Non-Cache](https://muzammilkm.github.io/jq-router/docs/simple-non-cache/index.html)
+	* Easy & Simple
+	* Cachable Routes
 * [Nested Views](https://muzammilkm.github.io/jq-router/docs/nested-views/index.html)
 	* Nested View (Parent > Child > Grand Child)
 * [Lazy Store](https://muzammilkm.github.io/jq-router/docs/lazy-store/index.html)
@@ -97,6 +100,7 @@ Routes is collection of route objects. Each route object consists of url, templa
     
     route["parent.child.grandchild"] = {
 	url: '', 
+	cache: bool,
 	templateUrl: ''
     }
 ```
@@ -113,12 +117,29 @@ url: ''
 ```javascript
 templateUrl: ''
 ```
+> Allowing caching of route template or you can also set default to all routes in setData,  
+```javascript
+cahce: true || false
+```
 > Path to render the view in matched view selector.
 
 ```javascript
 resolve: callback //function or [] of function
 ```
 > A callback function or array of function's which is executed when a route is matched & route is rendered only when all deferred objects are resolved.s
+
+```javascript
+ $.router.setData(data, isCacheTempalte);
+```
+> setDate takes two parameters 
+* data: A route object which contains route definition, like url, template url, route is parent & should it be cached.
+* isCacheTempalte: If the templates are server side pages (like php, aspx, jsp, or server rendered). Then you set this to false & templates are not cached.
+
+```javascript
+ $.router.setDefault(name);
+```
+> setDefault 
+* name: A route name, if the url does not match to any route, router will redirect to default secified route.
 
 ```javascript
 $.when($.ready)

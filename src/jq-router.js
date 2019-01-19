@@ -195,11 +195,13 @@
         /**
          * Set route data by preparing params & expression.
          * @param {object} data
+         * @param {bool} isCacheTempalte default to true
          * @return {object} this
          */
-        s.setData = function(data) {
+        s.setData = function(data, isCacheTempalte) {
             var s = this;
 
+            isCacheTempalte = isCacheTempalte === undefined ? true : isCacheTempalte;
             s.routes = {};
             for (var routeName in data) {
                 var segments = routeName.split('.'),
@@ -226,6 +228,7 @@
                 urlExpr = new RegExp("^" + relativeUrl.replace(expr.Param_Matcher, expr.Param_Replacer) + "$");
                 route.relativeUrl = relativeUrl;
                 route.urlExpr = urlExpr;
+                route.cache = route.hasOwnProperty("cache") ? route.cache : isCacheTempalte;
             }
             return s;
         };

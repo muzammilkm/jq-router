@@ -1,0 +1,49 @@
+<html>
+<title>JS Router | Basic</title>
+
+<head></head>
+
+<body>
+	<div class="menu">
+		<a href="#/">Home</a> | <a href="#/cache">Cached</a> | <a href="#/non-cache">Not Cached</a>
+	</div>
+	<div class="my-view"></div>
+	<footer class="footer" style="clear:both; text-align: center">
+		<p>jq-router is maintained by <a href="https://github.com/muzammilkm">muzammilkm</a></p>
+		<p>go to jq-router <a href="/jq-router">documentation</a></p>
+	</footer>
+	<script type="text/javascript" src="../scripts/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../scripts/jq-router.js"></script>
+	<script type="text/javascript">
+		var routes = {},
+			defaultRoute = 'home';
+
+		routes['home'] = {
+			url: '#/',
+			templateUrl: 'templates/home.html'
+		};
+
+		routes['cache-route'] = {
+			url: '#/cache',
+			cache: true,
+			templateUrl: 'templates/cache-route.html'
+		};
+
+		routes['non-cache-route'] = {
+			url: '#/non-cache',
+			cache: false,
+			templateUrl: 'templates/non-cache-route.html'
+		};
+
+		$.router
+			.setData(routes, false)
+			.setDefault(defaultRoute);
+
+		$.when($.ready)
+			.then(function() {
+				$.router.run('.my-view', 'home');
+			});
+	</script>
+</body>
+
+</html>

@@ -33,11 +33,13 @@
         /**
          * Download the template from server via ajax call.
          * @param {string} url
+         * @param {bool} cache
          * @return {object} deferred
          */
-        s.getViewTemplate = function(url) {
+        s.getViewTemplate = function(url, cache) {
             return $.get({
                     url: url,
+                    cache: cache,
                     dataType: 'html'
                 })
                 .then(function(content) {
@@ -67,8 +69,8 @@
                     requests.push(_route.resolve(route, params));
                 }
 
-                if (!templateCache[_route.templateUrl]) {
-                    requests.push(s.getViewTemplate(_route.templateUrl));
+                if (!templateCache[_route.templateUrl] || !_route.cache) {
+                    requests.push(s.getViewTemplate(_route.templateUrl, _route.cache));
                 }
             }
 

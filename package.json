@@ -1,6 +1,6 @@
 {
   "name": "jq-router",
-  "version": "4.3.0",
+  "version": "4.5.0",
   "description": "A tiny jQuery plugin for building single page application (SPA) with the possibility of nested views",
   "main": "index.js",
   "scripts": {
