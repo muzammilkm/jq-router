@@ -35,10 +35,10 @@
   },
   "homepage": "https://muzammilkm.github.io/jq-router",
   "dependencies": {
-    "gulp": "^3.9.1",
     "jquery": "^3.2.1"
   },
-  "devDependencies": {
+  "devDependencies": {    
+    "gulp": "^3.9.1",
     "chai": "^4.1.2",
     "gulp-concat": "^2.6.1",
     "gulp-jshint": "^2.0.4",
