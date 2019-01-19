@@ -52,7 +52,7 @@ $ bower install jq-router
 ```
 
 ## Introduction
-A tiny jQuery plugin for building single page application (SPA) with the possiblily of nested views.
+A tiny jQuery plugin for building single page application (SPA) with the possibility of nested views.
 
 Basic Example
 ```javascript
