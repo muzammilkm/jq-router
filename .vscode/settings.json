@@ -1,0 +1,4 @@
+{
+    "mocha.files.glob": "test/**/*.test.js",
+    "mocha.requires": ["test/setup.config.js"]    
+}
