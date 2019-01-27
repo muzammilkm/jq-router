@@ -3,7 +3,7 @@
     // var requests = [],
     //   xhr;
     before(function() {
-      require("./setup.config.js");
+      require("../setup.config.js");
     });
 
     before(function() {

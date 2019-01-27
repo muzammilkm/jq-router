@@ -1,7 +1,7 @@
 (function(chai, expect, sinon) {
   describe(__filename, function() {
     before(function() {
-      require("./setup.config.js");
+      require("../setup.config.js");
     });
 
     before(function() {
