@@ -1,5 +1,9 @@
 (function(chai, expect, sinon) {
-  describe("Navigate to proper url without using rendering template", function() {
+  describe(__filename, function() {
+    before(function() {
+      require("./setup.config.js");
+    });
+
     before(function() {
       var routes = {};
       routes["home"] = {
@@ -21,9 +25,7 @@
       routes["users.edit"] = {
         url: "/:id/edit"
       };
-      $.router
-        .setData(routes)
-        .setDefault("home");
+      $.router.setData(routes).setDefault("home");
     });
 
     afterEach(function() {

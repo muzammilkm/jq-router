@@ -1,6 +1,9 @@
 (function(chai, expect) {
+  describe(__filename, function() {
+    before(function() {
+      require("./setup.config.js");
+    });
 
-  describe("when routes are not set in jqRouter", function() {
     it("should be empty current route ", function() {
       var current = $.router.getCurrentRoute();
       expect(Object.keys(current)).to.have.lengthOf(0);
@@ -26,7 +29,4 @@
       expect(url).to.be.undefined;
     });
   });
-})(
-  require("chai"),
-  require("chai").expect
-);
+})(require("chai"), require("chai").expect);

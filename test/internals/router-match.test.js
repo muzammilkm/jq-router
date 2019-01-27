@@ -1,5 +1,9 @@
 (function(chai, expect) {
-  describe("Generate proper href url in jqRouter", function() {
+  describe(__filename, function() {
+    before(function() {
+      require("../setup.config.js");
+    });
+
     before(function() {
       var routes = {};
       routes["home"] = {
@@ -22,7 +26,7 @@
         url: "/:id/edit"
       };
       $.router.setData(routes);
-    });    
+    });
 
     after(function() {
       $.router.setData(null);
