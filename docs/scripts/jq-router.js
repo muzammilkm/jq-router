@@ -1,12 +1,12 @@
 /*!
- * jQ-Router JQuery Plugin v4.3.0
+ * jQ-Router JQuery Plugin v4.5.1
  * https://github.com/muzammilkm/jq-router
  *
  * Copyright 2017, Muzammil Khaja Mohammed
  * Licensed under the MIT license.
  * https://github.com/muzammilkm/jq-router/blob/master/LICENSE
  *
- * Date: Tue Nov 10 6:00:00 2018 +0530
+ * Date: Tue Jan 26 12:25:00 2019 +0530
  */
 
 (function($, window) {
@@ -201,6 +201,7 @@
         /**
          * Set route data by preparing params & expression.
          * @param {object} data
+         * @param {bool} isCacheTempalte default to true
          * @return {object} this
          */
         s.setData = function(data, isCacheTempalte) {
@@ -255,14 +256,14 @@
     $.router = router;
 }(jQuery, this));
 /*!
- * jQ-Router JQuery Plugin v4.3.0
+ * jQ-Router JQuery Plugin v4.5.1
  * https://github.com/muzammilkm/jq-router
  *
  * Copyright 2017, Muzammil Khaja Mohammed
  * Licensed under the MIT license.
  * https://github.com/muzammilkm/jq-router/blob/master/LICENSE
  *
- * Date: Tue Nov 10 6:00:00 2018 +0530
+ * Date: Tue Jan 26 12:25:00 2019 +0530
  */
 
 (function($, window, router) {
@@ -345,14 +346,14 @@
 
 }(jQuery, window, $.router));
 /*!
- * jQ-Router JQuery Plugin v4.3.0
+ * jQ-Router JQuery Plugin v4.5.1
  * https://github.com/muzammilkm/jq-router
  *
  * Copyright 2017, Muzammil Khaja Mohammed
  * Licensed under the MIT license.
  * https://github.com/muzammilkm/jq-router/blob/master/LICENSE
  *
- * Date: Tue Nov 10 6:00:00 2018 +0530
+ * Date: Tue Jan 26 12:25:00 2019 +0530
  */
 
 (function($, router) {
@@ -375,14 +376,14 @@
 }(jQuery, $.router));
 
 /*!
- * jQ-Router JQuery Plugin v4.3.0
+ * jQ-Router JQuery Plugin v4.5.1
  * https://github.com/muzammilkm/jq-router
  *
  * Copyright 2017, Muzammil Khaja Mohammed
  * Licensed under the MIT license.
  * https://github.com/muzammilkm/jq-router/blob/master/LICENSE
  *
- * Date: Tue Nov 10 6:00:00 2018 +0530
+ * Date: Tue Jan 26 12:25:00 2019 +0530
  */
 
 (function($, router) {
@@ -409,6 +410,7 @@
         /**
          * Download the template from server via ajax call.
          * @param {string} url
+         * @param {bool} cache
          * @return {object} deferred
          */
         s.getViewTemplate = function(url, cache) {

@@ -1,12 +1,12 @@
 /*!
- * jQ-Router JQuery Plugin v4.3.0
+ * jQ-Router JQuery Plugin v4.5.1
  * https://github.com/muzammilkm/jq-router
  *
  * Copyright 2017, Muzammil Khaja Mohammed
  * Licensed under the MIT license.
  * https://github.com/muzammilkm/jq-router/blob/master/LICENSE
  *
- * Date: Tue Nov 10 6:00:00 2018 +0530
+ * Date: Tue Jan 26 12:25:00 2019 +0530
  */
 
 (function($, window, router) {
