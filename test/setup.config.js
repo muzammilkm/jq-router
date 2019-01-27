@@ -2,7 +2,6 @@
   var window = new jsdom.JSDOM(
     "<!DOCTYPE html><html><head></head><body></body></html>"
   ).window;
-  console.log("register");
   global.window = window;
   global.document = window.document;
   global.$ = global.jQuery = jQuery(window);

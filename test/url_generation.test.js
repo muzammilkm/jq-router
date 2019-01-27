@@ -21,7 +21,39 @@
       routes["users.edit"] = {
         url: "/:id/edit"
       };
-      $.router.setData(routes);
+      $.router.setData(routes).setDefault("home");
+    });
+
+    describe("when no default route", function() {
+      beforeEach(function() {
+        $.router.setDefault(undefined);
+      });
+
+      it("should be undefined as default route without route name", function() {
+        var url = $.router.href();
+        expect(url).to.be.undefined;
+      });
+
+      it("should be undefine for unknown route", function() {
+        var url = $.router.href("unknown");
+        expect(url).to.be.undefined;
+      });
+    });
+
+    describe("when default route", function() {
+      beforeEach(function() {
+        $.router.setDefault("home");
+      });
+
+      it("should generate #/ url as default route without route name", function() {
+        var url = $.router.href();
+        expect(url).to.be.eq("#/");
+      });
+
+      it("should be undefined for unknown route with default route", function() {
+        var url = $.router.href("unknown");
+        expect(url).to.be.undefined;
+      });
     });
 
     it("should generate #/ url for home route", function() {
