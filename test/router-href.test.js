@@ -24,6 +24,10 @@
       $.router.setData(routes).setDefault("home");
     });
 
+    after(function() {
+      $.router.setData(null);
+    });
+
     describe("when no default route", function() {
       beforeEach(function() {
         $.router.setDefault(undefined);
@@ -84,10 +88,6 @@
     it("should generate #/users/1/edit url for users.edit route", function() {
       var url = $.router.href("users.edit", { id: 1 });
       expect(url).to.be.eq("#/users/1/edit");
-    });
-
-    after(function() {
-      $.router.setData(null);
     });
   });
 })(require("chai"), require("chai").expect);

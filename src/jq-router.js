@@ -81,7 +81,7 @@
                 url = s.href(routeName, params);
             if (url) {
                 s.paramService.setParams(params);
-                window.location = url;
+                window.location.assign(url);
             }
             return s;
         };
@@ -256,4 +256,4 @@
     }());
 
     $.router = router;
-}(jQuery, this));
+}(jQuery, window));

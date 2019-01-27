@@ -77,9 +77,12 @@
          * @return {object} this
          */
         s.go = function(routeName, params) {
-            var s = this;
-            s.paramService.setParams(params);
-            window.location = s.href(routeName, params);
+            var s = this,
+                url = s.href(routeName, params);
+            if (url) {
+                s.paramService.setParams(params);
+                window.location.assign(url);
+            }
             return s;
         };
 
@@ -91,14 +94,13 @@
          */
         s.href = function(routeName, params) {
             routeName = routeName || defaultRoute;
-            if(!s.routes[routeName]){
+            var s = this,
+                route = s.routes[routeName];
+            if (!route) {
                 return;
             }
 
-            var s = this,
-                route = s.routes[routeName],
-                url = route.relativeUrl;
-
+            var url = route.relativeUrl;
             for (var i = 0; i < route.params.length; i++) {
                 url = url.replace(':' + route.params[i], params[route.params[i]]);
             }
@@ -254,7 +256,7 @@
     }());
 
     $.router = router;
-}(jQuery, this));
+}(jQuery, window));
 /*!
  * jQ-Router JQuery Plugin v4.5.1
  * https://github.com/muzammilkm/jq-router

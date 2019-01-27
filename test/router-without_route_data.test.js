@@ -18,7 +18,7 @@
 
     it("should not change the windows location", function() {
       $.router.go("home");
-      expect(window.location.href).to.be.eq("about:blank");
+      expect(window.location.href).to.be.eq("http://jq-router.com/");
     });
 
     it("should be undefined url", function() {

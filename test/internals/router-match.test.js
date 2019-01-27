@@ -22,6 +22,10 @@
         url: "/:id/edit"
       };
       $.router.setData(routes);
+    });    
+
+    after(function() {
+      $.router.setData(null);
     });
 
     it("should match #/ url to home route", function() {
@@ -52,10 +56,6 @@
     it("should match #/users/1/edit url to users.edit route", function() {
       var route = $.router.match("#/users/1/edit");
       expect(route.name).to.be.eq("users.edit");
-    });
-
-    after(function() {
-      $.router.setData(null);
     });
   });
 })(require("chai"), require("chai").expect);
