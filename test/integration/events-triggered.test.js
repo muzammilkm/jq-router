@@ -27,6 +27,10 @@
         url: "#/",
         templateUrl: "templates/index.html"
       };
+      routes["resolve"] = {
+        url: "#/resolving",
+        templateUrl: "templates/index.html"
+      };
       routes["users"] = {
         abstract: true,
         url: "#/users"
@@ -81,7 +85,12 @@
         sinon.assert.calledOnce(viewChangeSpy);
         sinon.assert.calledOnce(routeChangedSpy);
 
-        sinon.assert.callOrder(routeMatchedSpy, routeBeforeChangeSpy, viewChangeSpy, routeChangedSpy);
+        sinon.assert.callOrder(
+          routeMatchedSpy,
+          routeBeforeChangeSpy,
+          viewChangeSpy,
+          routeChangedSpy
+        );
         done();
       }, 10);
     });
