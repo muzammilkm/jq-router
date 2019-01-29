@@ -1,28 +1,12 @@
 (function(chai, expect, sinon) {
   describe(__filename, function() {
-    // var requests = [],
-    //   xhr;
     before(function() {
       require("../setup.config.js");
     });
 
     before(function() {
-      // xhr = sinon.useFakeXMLHttpRequest();
-      // xhr.onCreate = function(xhr) {
-      //   this.requests.push(xhr);
-      // }.bind(this);
-
       var ajaxStub = sinon.stub($, "ajax");
       ajaxStub.returns(Promise.resolve());
-      // ajaxStub
-      //   .withArgs(
-      //     sinon.match({
-      //       url: "https://http://jq-router.com/templates/index.html"
-      //     })
-      //   )
-      //   .yieldsToAsync("then", "<h1></h1>");
-
-      // getAjax.yieldsTo("success", "<h1></h1>");
 
       var routes = {};
       routes["home"] = {
@@ -52,10 +36,7 @@
     });
 
     after(function() {
-      //xhr.restore();
       $.ajax.restore();
-      // $(window).off("hashchange");
-      // $.router.setData(null);
     });
 
     afterEach(function() {
