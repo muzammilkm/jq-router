@@ -80,6 +80,8 @@
         // sinon.assert.calledOnce(viewDestroyedSpy);
         sinon.assert.calledOnce(viewChangeSpy);
         sinon.assert.calledOnce(routeChangedSpy);
+
+        sinon.assert.callOrder(routeMatchedSpy, routeBeforeChangeSpy, viewChangeSpy, routeChangedSpy);
         done();
       }, 10);
     });
