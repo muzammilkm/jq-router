@@ -4,7 +4,14 @@
   "description": "A tiny jQuery plugin for building single page application (SPA) with the possibility of nested views",
   "main": "index.js",
   "scripts": {
-    "test": "mochify"
+    "test": "mocha \"test/**/*.test.js\"",
+    "nyc": "nyc --reporter=html --reporter=text  npm run test"
+  },
+  "nyc": {
+    "exclude": [
+      "**/test/**/*.test.js",
+      "test"
+    ]
   },
   "repository": {
     "type": "git",
@@ -39,16 +46,21 @@
   "dependencies": {
     "jquery": "^3.2.1"
   },
-  "devDependencies": {    
-    "gulp": "^3.9.1",
+  "devDependencies": {
     "chai": "^4.1.2",
+    "flush-cache": "^1.0.1",
+    "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-jshint": "^2.0.4",
     "gulp-rename": "^1.4.0",
     "gulp-uglify": "^3.0.0",
     "jquery": "^3.2.1",
+    "jsdom": "^13.2.0",
+    "jsdom-global": "^3.0.2",
     "jshint": "^2.9.6",
     "mocha": "^4.0.1",
-    "mochify": "^3.3.0"
+    "mochify": "^3.3.0",
+    "nyc": "^13.1.0",
+    "sinon": "^7.1.1"
   }
 }
