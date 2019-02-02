@@ -70,7 +70,8 @@
                 }
 
                 if (!templateCache[_route.templateUrl] || !_route.cache) {
-                    requests.push(s.getViewTemplate(_route.templateUrl, _route.cache));
+                    var templateUrl = router.paramReplacer(_route.templateUrl, _route, params);
+                    requests.push(s.getViewTemplate(templateUrl, _route.cache));
                 }
             }
 

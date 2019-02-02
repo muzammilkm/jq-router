@@ -99,12 +99,7 @@
             if (!route) {
                 return;
             }
-
-            var url = route.relativeUrl;
-            for (var i = 0; i < route.params.length; i++) {
-                url = url.replace(':' + route.params[i], params[route.params[i]]);
-            }
-            return url;
+            return s.paramReplacer(route.relativeUrl, route, params);
         };
 
         /**
@@ -168,6 +163,24 @@
                 }
             }
             return s;
+        };
+
+        /**
+         * Replace Params for given string with route & params
+         * @param {string} 
+         * @param {object} route
+         * @param {object} params
+         * @returns {string} 
+         */
+        s.paramReplacer = function(str, route, params) {
+            if(!str){
+                return;
+            }
+            for (var i = 0; i < route.params.length; i++) {
+                str = str.replace(':' + route.params[i], params[route.params[i]]);
+            }
+            
+            return str;
         };
 
         /**

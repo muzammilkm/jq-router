@@ -3,7 +3,7 @@
 
   global.URL = "http://jq-router.com/";
   global.JSDOM = new jsdom.JSDOM(
-    "<!DOCTYPE html><html><head></head><body></body></html>",
+    "<!DOCTYPE html><html><head></head><body><div class='my-view'></div></body></html>",
     {
       url: URL
     }
