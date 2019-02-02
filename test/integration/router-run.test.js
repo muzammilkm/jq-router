@@ -32,7 +32,7 @@
       $.router
         .setData(routes)
         .setDefault("home")
-        .run(".my-view", "home");
+        .run(".my-view", "users.detail", { id: 1 });
 
       setTimeout(function() {
         done();
@@ -47,27 +47,15 @@
       JSDOM.reconfigure({ url: URL });
     });
 
-    it("should navigate to #/ url for home route", function(done) {
-      var routeName = "home";
-      $.router.go(routeName);
-      setTimeout(function() {
-        var route = $.router.getCurrentRoute();
-        var params = $.router.getCurrentParams();
-        expect(routeName).to.be.eq(route.name);
-        expect(params).to.be.empty;
-        done();
-      }, 10);
-    });
+    it("should no have any effect current router state", function(done) {
+      expect($.router.getCurrentRoute().name).to.be.eq("users.detail");
+      expect($.router.getCurrentParams().id).to.be.eq("1");
 
-    it("should navigate to #/users/1 url for users.detail route", function(done) {
-      var routeName = "users.detail";
-      $.router.go(routeName, { id: 1 });
+      $.router.run(".some-view", "home", false);
       setTimeout(function() {
-        var route = $.router.getCurrentRoute();
-        var params = $.router.getCurrentParams();
-        expect(routeName).to.be.eq(route.name);
-        expect(params).not.to.be.empty;
-        expect(params.id).to.be.eq("1");
+        expect($.router.getCurrentRoute().name).to.be.eq("users.detail");
+        expect($.router.getCurrentParams().id).to.be.eq("1");
+
         done();
       }, 10);
     });

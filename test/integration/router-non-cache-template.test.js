@@ -6,7 +6,7 @@
 
     before(function(done) {
       var ajaxStub = sinon.stub($, "ajax");
-      ajaxStub.returns(Promise.resolve());
+      ajaxStub.returns(Promise.resolve("<h1></h1>"));
 
       var routes = {};
       routes["home"] = {
@@ -15,24 +15,32 @@
       };
       routes["users"] = {
         abstract: true,
-        url: "#/users"
+        url: "#/users",
+        cache: true,
+        templateUrl: "templates/users/index.html"
       };
       routes["users.list"] = {
-        url: ""
+        url: "",
+        cache: true,
+        templateUrl: "templates/users/list.html"
       };
       routes["users.add"] = {
-        url: "/add"
+        url: "/add",
+        templateUrl: "templates/users/add.html"
       };
       routes["users.detail"] = {
-        url: "/:id"
+        url: "/:id",
+        cache: false,
+        templateUrl: "templates/users/detail.html"
       };
       routes["users.edit"] = {
-        url: "/:id/edit"
+        url: "/:id/edit",
+        templateUrl: "templates/users/edit.html"
       };
       $.router
-        .setData(routes)
+        .setData(routes, false)
         .setDefault("home")
-        .run(".my-view", "home");
+        .run(".my-view", "users.detail", { id: 1 });
 
       setTimeout(function() {
         done();
@@ -47,27 +55,15 @@
       JSDOM.reconfigure({ url: URL });
     });
 
-    it("should navigate to #/ url for home route", function(done) {
-      var routeName = "home";
-      $.router.go(routeName);
-      setTimeout(function() {
-        var route = $.router.getCurrentRoute();
-        var params = $.router.getCurrentParams();
-        expect(routeName).to.be.eq(route.name);
-        expect(params).to.be.empty;
-        done();
-      }, 10);
-    });
-
-    it("should navigate to #/users/1 url for users.detail route", function(done) {
+    it("should not cache user/detail.html template for users.detail route", function(done) {
       var routeName = "users.detail";
-      $.router.go(routeName, { id: 1 });
+      $.router.go(routeName, { id: 2 });
       setTimeout(function() {
         var route = $.router.getCurrentRoute();
         var params = $.router.getCurrentParams();
-        expect(routeName).to.be.eq(route.name);
-        expect(params).not.to.be.empty;
-        expect(params.id).to.be.eq("1");
+        expect(route.name).to.be.eq("users.detail");
+        expect(route.cache).to.be.eq(false);
+        expect(params.id).to.be.eq("2");
         done();
       }, 10);
     });

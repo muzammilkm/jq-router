@@ -4,7 +4,7 @@
       require("../setup.config.js");
     });
 
-    before(function() {
+    before(function(done) {
       var ajaxStub = sinon.stub($, "ajax");
       ajaxStub.returns(Promise.resolve());
 
@@ -33,6 +33,10 @@
         .setData(routes)
         .setDefault("home")
         .run(".my-view", "users.detail", { id: 1 });
+
+      setTimeout(function() {
+        done();
+      }, 20);
     });
 
     after(function() {
@@ -44,6 +48,9 @@
     });
 
     it("should change route params", function(done) {
+      expect($.router.getCurrentRoute().name).to.be.eq("users.detail");
+      expect($.router.getCurrentParams().id).to.be.eq("1");
+
       $.router.go("users.detail", { id: 2 });
       setTimeout(function() {
         expect($.router.getCurrentRoute().name).to.be.eq("users.detail");

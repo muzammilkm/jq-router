@@ -11,7 +11,7 @@
       require("../setup.config.js");
     });
 
-    before(function() {
+    before(function(done) {
       var ajaxStub = sinon.stub($, "ajax");
       ajaxStub.returns(Promise.resolve());
 
@@ -58,6 +58,10 @@
       $.router.onViewDestroyed(viewDestroyedSpy);
       $.router.onViewChange(viewChangeSpy);
       $.router.onRouteChanged(routeChangedSpy);
+
+      setTimeout(function() {
+        done();
+      }, 20);
     });
 
     after(function() {
@@ -95,16 +99,31 @@
       }, 10);
     });
 
-    it("should trigger onRouteNotMatched event", function(done) {
+    it("should trigger onRouteNotMatched event and redirect to default route", function(done) {
       window.location.assign("/#/unknown");
       setTimeout(function() {
         sinon.assert.calledOnce(routeNotMatchedSpy);
 
         sinon.assert.calledOnce(routeMatchedSpy);
         sinon.assert.calledOnce(routeBeforeChangeSpy);
-        // sinon.assert.notCalled(viewDestroyedSpy);
+        // sinon.assert.calledOnce(viewDestroyedSpy);
         sinon.assert.calledOnce(viewChangeSpy);
         sinon.assert.calledOnce(routeChangedSpy);
+        done();
+      }, 10);
+    });
+
+    it("should trigger onRouteNotMatched event", function(done) {
+      $.router.setDefault(undefined);
+      window.location.assign("/#/unknown");
+      setTimeout(function() {
+        sinon.assert.calledOnce(routeNotMatchedSpy);
+
+        sinon.assert.notCalled(routeMatchedSpy);
+        sinon.assert.notCalled(routeBeforeChangeSpy);
+        sinon.assert.notCalled(viewDestroyedSpy);
+        sinon.assert.notCalled(viewChangeSpy);
+        sinon.assert.notCalled(routeChangedSpy);
         done();
       }, 10);
     });
