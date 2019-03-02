@@ -1,12 +1,12 @@
 /*!
- * jQ-Router JQuery Plugin v4.6.0
+ * jQ-Router JQuery Plugin v4.6.1
  * https://github.com/muzammilkm/jq-router
  *
  * Copyright 2017, Muzammil Khaja Mohammed
  * Licensed under the MIT license.
  * https://github.com/muzammilkm/jq-router/blob/master/LICENSE
  *
- * Date: Sat Mar 2 3:00:00 2019 +0530
+ * Date: Sat Mar 2 9:25:00 2019 +0530
  */
 
 (function($, window) {
@@ -271,14 +271,14 @@
     $.router = router;
 }(jQuery, window));
 /*!
- * jQ-Router JQuery Plugin v4.6.0
+ * jQ-Router JQuery Plugin v4.6.1
  * https://github.com/muzammilkm/jq-router
  *
  * Copyright 2017, Muzammil Khaja Mohammed
  * Licensed under the MIT license.
  * https://github.com/muzammilkm/jq-router/blob/master/LICENSE
  *
- * Date: Sat Mar 2 3:00:00 2019 +0530
+ * Date: Sat Mar 2 9:25:00 2019 +0530
  */
 
 (function($, window, router) {
@@ -361,14 +361,14 @@
 
 }(jQuery, window, $.router));
 /*!
- * jQ-Router JQuery Plugin v4.6.0
+ * jQ-Router JQuery Plugin v4.6.1
  * https://github.com/muzammilkm/jq-router
  *
  * Copyright 2017, Muzammil Khaja Mohammed
  * Licensed under the MIT license.
  * https://github.com/muzammilkm/jq-router/blob/master/LICENSE
  *
- * Date: Sat Mar 2 3:00:00 2019 +0530
+ * Date: Sat Mar 2 9:25:00 2019 +0530
  */
 
 (function($, router) {
@@ -391,14 +391,14 @@
 }(jQuery, $.router));
 
 /*!
- * jQ-Router JQuery Plugin v4.6.0
+ * jQ-Router JQuery Plugin v4.6.1
  * https://github.com/muzammilkm/jq-router
  *
  * Copyright 2017, Muzammil Khaja Mohammed
  * Licensed under the MIT license.
  * https://github.com/muzammilkm/jq-router/blob/master/LICENSE
  *
- * Date: Sat Mar 2 3:00:00 2019 +0530
+ * Date: Sat Mar 2 9:25:00 2019 +0530
  */
 
 (function($, router) {
@@ -428,14 +428,14 @@
          * @param {bool} cache
          * @return {object} deferred
          */
-        s.getViewTemplate = function(url, cache) {
+        s.getViewTemplate = function(url, templateUrl, cache) {
             return $.get({
                     url: url,
                     cache: cache,
                     dataType: 'html'
                 })
                 .then(function(content) {
-                    templateCache[url] = content;
+                    templateCache[templateUrl] = content;
                 });
         };
 
@@ -463,7 +463,7 @@
 
                 if (!templateCache[_route.templateUrl] || !_route.cache) {
                     var templateUrl = router.paramReplacer(_route.templateUrl, _route, params);
-                    requests.push(s.getViewTemplate(templateUrl, _route.cache));
+                    requests.push(s.getViewTemplate(templateUrl, _route.templateUrl, _route.cache));
                 }
             }
 
