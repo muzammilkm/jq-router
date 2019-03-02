@@ -1,12 +1,12 @@
 /*!
- * jQ-Router JQuery Plugin v4.5.1
+ * jQ-Router JQuery Plugin v4.6.0
  * https://github.com/muzammilkm/jq-router
  *
  * Copyright 2017, Muzammil Khaja Mohammed
  * Licensed under the MIT license.
  * https://github.com/muzammilkm/jq-router/blob/master/LICENSE
  *
- * Date: Tue Jan 26 12:25:00 2019 +0530
+ * Date: Sat Mar 2 3:00:00 2019 +0530
  */
 
 (function($, window) {
@@ -99,12 +99,7 @@
             if (!route) {
                 return;
             }
-
-            var url = route.relativeUrl;
-            for (var i = 0; i < route.params.length; i++) {
-                url = url.replace(':' + route.params[i], params[route.params[i]]);
-            }
-            return url;
+            return s.paramReplacer(route.relativeUrl, route, params);
         };
 
         /**
@@ -168,6 +163,24 @@
                 }
             }
             return s;
+        };
+
+        /**
+         * Replace Params for given string with route & params
+         * @param {string} 
+         * @param {object} route
+         * @param {object} params
+         * @returns {string} 
+         */
+        s.paramReplacer = function(str, route, params) {
+            if(!str){
+                return;
+            }
+            for (var i = 0; i < route.params.length; i++) {
+                str = str.replace(':' + route.params[i], params[route.params[i]]);
+            }
+            
+            return str;
         };
 
         /**
@@ -258,14 +271,14 @@
     $.router = router;
 }(jQuery, window));
 /*!
- * jQ-Router JQuery Plugin v4.5.1
+ * jQ-Router JQuery Plugin v4.6.0
  * https://github.com/muzammilkm/jq-router
  *
  * Copyright 2017, Muzammil Khaja Mohammed
  * Licensed under the MIT license.
  * https://github.com/muzammilkm/jq-router/blob/master/LICENSE
  *
- * Date: Tue Jan 26 12:25:00 2019 +0530
+ * Date: Sat Mar 2 3:00:00 2019 +0530
  */
 
 (function($, window, router) {
@@ -348,14 +361,14 @@
 
 }(jQuery, window, $.router));
 /*!
- * jQ-Router JQuery Plugin v4.5.1
+ * jQ-Router JQuery Plugin v4.6.0
  * https://github.com/muzammilkm/jq-router
  *
  * Copyright 2017, Muzammil Khaja Mohammed
  * Licensed under the MIT license.
  * https://github.com/muzammilkm/jq-router/blob/master/LICENSE
  *
- * Date: Tue Jan 26 12:25:00 2019 +0530
+ * Date: Sat Mar 2 3:00:00 2019 +0530
  */
 
 (function($, router) {
@@ -378,14 +391,14 @@
 }(jQuery, $.router));
 
 /*!
- * jQ-Router JQuery Plugin v4.5.1
+ * jQ-Router JQuery Plugin v4.6.0
  * https://github.com/muzammilkm/jq-router
  *
  * Copyright 2017, Muzammil Khaja Mohammed
  * Licensed under the MIT license.
  * https://github.com/muzammilkm/jq-router/blob/master/LICENSE
  *
- * Date: Tue Jan 26 12:25:00 2019 +0530
+ * Date: Sat Mar 2 3:00:00 2019 +0530
  */
 
 (function($, router) {
@@ -449,7 +462,8 @@
                 }
 
                 if (!templateCache[_route.templateUrl] || !_route.cache) {
-                    requests.push(s.getViewTemplate(_route.templateUrl, _route.cache));
+                    var templateUrl = router.paramReplacer(_route.templateUrl, _route, params);
+                    requests.push(s.getViewTemplate(templateUrl, _route.cache));
                 }
             }
 
